@@ -1,7 +1,6 @@
 require 'nokogiri'
 require 'uri'
 require 'open-uri'
-require 'htmlentities'
 
 class HtmlGrabber
   def get_results(url, selector)
