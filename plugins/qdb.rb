@@ -2,6 +2,7 @@ require 'cinch'
 require 'open-uri'
 require 'nokogiri'
 require 'htmlentities'
+require 'cgi'
 
 class Qdb
   include Cinch::Plugin
@@ -12,7 +13,7 @@ class Qdb
 
   def grab_qdb(m, id)
     coder = HTMLEntities.new
-    doc = Nokogiri::HTML(open("http://www.bash.org/?#{id}"))
+    doc = Nokogiri::HTML(open("http://www.bash.org/?#{CGI.escape(id)}"))
     quotes = doc.css("p.qt")
     if(quotes.length > 0)
       coder.decode(quotes.first.content).split("\n").each do |line|
