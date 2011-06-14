@@ -1,6 +1,7 @@
 $: << File.dirname(__FILE__)
 
 require 'cinch'
+require 'yaml'
 require 'plugins/qdb'
 require 'plugins/ascii_art'
 require 'plugins/toilet'

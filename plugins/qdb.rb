@@ -1,5 +1,5 @@
 require 'cinch'
-require 'utility'
+require 'lib/html_grabber'
 
 class Qdb
   include Cinch::Plugin
