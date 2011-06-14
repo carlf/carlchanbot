@@ -1,5 +1,6 @@
 require 'cinch'
 require 'yaml'
+require 'fileutils'
 
 class SeenUser < Struct.new(:nick, :msg, :time)
 end
@@ -21,6 +22,9 @@ class Seen
   end
 
   def save_seen
+    if(!File.directory?('data/seen'))
+      FileUtils.mkdir_p('data/seen')
+    end
     File.open('data/seen/seen.yml', 'w') do |out|
       YAML.dump(@seen_entries, out)
     end
