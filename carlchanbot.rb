@@ -8,11 +8,13 @@ require 'plugins/toilet'
 require 'plugins/fortune'
 require 'plugins/urban_dictionary'
 
+yaml = YAML::load(File.open('config.yml'))
+
 bot = Cinch::Bot.new do
   configure do |c|
-    c.server = 'irc.oftc.net'
-    c.channels = ["#carlchan"]
-    c.nick = 'carlchanbot'
+    c.server = yaml['server']
+    c.channels = [yaml['channel']]
+    c.nick = yaml['nick']
     c.plugins.plugins = [Qdb, AsciiArt, Toilet, Fortune, UrbanDictionary]
   end
 end

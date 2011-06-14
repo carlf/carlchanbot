@@ -1,0 +1,3 @@
+nick: mynick
+server: irc.someserver.org
+channel: "#mychannel"
