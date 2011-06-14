@@ -1,8 +1,5 @@
 require 'cinch'
-require 'open-uri'
-require 'nokogiri'
-require 'htmlentities'
-require 'cgi'
+require 'lib/html_grabber'
 
 class UrbanDictionary
   include Cinch::Plugin
@@ -10,15 +7,15 @@ class UrbanDictionary
   match(/ud (.+)$/)
 
   def execute(m, term)
-    coder = HTMLEntities.new
-    doc = Nokogiri::HTML(open("http://www.urbandictionary.com/define.php?term=#{CGI.escape(term)}"))
-    defs = doc.css('div.definition')
-    if(defs.length > 0)
-      coder.decode(defs.first.content).split("\n").each do |line|
+    grabber = HtmlGrabber.new
+    url = "http://www.urbandictionary.com/define.php?term=#{term}"
+    result = grabber.get_results(url, 'div.definition')
+    if(result.length > 0)
+      result.each do |line|
         m.reply line
       end
     else
-      m.reply "Definition not found"
+      m.reply "No definition found"
     end
   end
 end

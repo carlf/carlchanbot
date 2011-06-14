@@ -1,11 +1,11 @@
-$LOAD_PATH.unshift('./plugins')
+$: << File.dirname(__FILE__)
 
 require 'cinch'
-require 'qdb'
-require 'ascii_art'
-require 'toilet'
-require 'fortune'
-require 'urban_dictionary'
+require 'plugins/qdb'
+require 'plugins/ascii_art'
+require 'plugins/toilet'
+require 'plugins/fortune'
+require 'plugins/urban_dictionary'
 
 bot = Cinch::Bot.new do
   configure do |c|

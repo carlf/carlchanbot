@@ -1,8 +1,5 @@
 require 'cinch'
-require 'open-uri'
-require 'nokogiri'
-require 'htmlentities'
-require 'cgi'
+require 'utility'
 
 class Qdb
   include Cinch::Plugin
@@ -12,11 +9,11 @@ class Qdb
   match(/qdb$/, method: :grab_random_qdb)
 
   def grab_qdb(m, id)
-    coder = HTMLEntities.new
-    doc = Nokogiri::HTML(open("http://www.bash.org/?#{CGI.escape(id)}"))
-    quotes = doc.css("p.qt")
-    if(quotes.length > 0)
-      coder.decode(quotes.first.content).split("\n").each do |line|
+    grabber = HtmlGrabber.new
+    url = "http://www.bash.org/?#{id}"
+    result = grabber.get_results(url, 'p.qt')
+    if(result.length > 0)
+      result.each do |line|
         m.reply line
       end
     else
@@ -25,7 +22,6 @@ class Qdb
   end
 
   def search_qdb(m, search_string)
-    search_string.gsub!(/ /, '+')
     grab_qdb(m, "search=#{search_string}&sort=0&show=25")
   end
 
