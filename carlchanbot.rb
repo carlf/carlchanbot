@@ -7,6 +7,7 @@ require 'plugins/ascii_art'
 require 'plugins/toilet'
 require 'plugins/fortune'
 require 'plugins/urban_dictionary'
+require 'plugins/seen'
 
 yaml = YAML::load(File.open('config.yml'))
 
@@ -15,7 +16,7 @@ bot = Cinch::Bot.new do
     c.server = yaml['server']
     c.channels = [yaml['channel']]
     c.nick = yaml['nick']
-    c.plugins.plugins = [Qdb, AsciiArt, Toilet, Fortune, UrbanDictionary]
+    c.plugins.plugins = [Qdb, AsciiArt, Toilet, Fortune, UrbanDictionary, Seen]
   end
 end
 

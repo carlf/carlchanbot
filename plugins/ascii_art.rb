@@ -10,14 +10,14 @@ class AsciiArt
     if(file =~ /[^a-zA-Z0-9_]/)
       return
     else
-      if(File::exists?("asciiart/#{file}"))
-        IO.foreach("asciiart/#{file}") {|line| m.reply line}
+      if(File::exists?("data/ascii_art/#{file}"))
+        IO.foreach("data/ascii_art/#{file}") {|line| m.reply line}
       end
     end
   end
 
   def aa_list(m)
-    Dir.chdir('asciiart') do
+    Dir.chdir('data/ascii_art') do
       m.reply Dir.glob('*').sort.join(', ')
     end
   end
